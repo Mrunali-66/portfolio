@@ -1,6 +1,12 @@
+// OPTION 1: Using EmailJS (Recommended - Free & Easy)
+// 1. Install EmailJS: npm install @emailjs/browser
+// 2. Sign up at https://www.emailjs.com/
+// 3. Create an email template and get your credentials
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from './ThemeContext';
+import emailjs from '@emailjs/browser';
 import myPhoto from "./MyPhoto.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -13,15 +19,51 @@ function Contact() {
     subject: "",
     message: "",
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // EMAILJS METHOD
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for your message! I will get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // Replace with your EmailJS credentials
+    const SERVICE_ID = 'service_4asggqp';      // New service ID
+    const TEMPLATE_ID = 'template_kshtx93';     // Keep same
+    const PUBLIC_KEY = '6ELO3bV3GWRwyk_AY';     // Keep sameconst SERVICE_ID = 'service_4asggqp';      // New service ID
+
+    emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'jiyahajare62@gmail.com', // Your email
+      },
+      PUBLIC_KEY
+    )
+    .then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
+      setSubmitStatus('success');
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      alert("Thank you! Your message has been sent successfully.");
+    })
+    .catch((error) => {
+      console.error('FAILED...', error);
+      setSubmitStatus('error');
+      alert("Oops! Something went wrong. Please try again or email me directly.");
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+    });
   };
 
   const contactItems = [
@@ -54,7 +96,6 @@ function Contact() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-4">
-        {/* Section Header */}
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +130,6 @@ function Contact() {
               transition={{ type: "spring", stiffness: 300 }}
             />
 
-            {/* Contact Details */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -140,7 +180,6 @@ function Contact() {
               ))}
             </motion.div>
 
-            {/* Social Icons */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -202,11 +241,12 @@ function Contact() {
                   value={formData[field]}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
                   className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 transition duration-300 ${
                     isDark
                       ? 'bg-gray-900 border border-gray-700 text-white'
                       : 'bg-white border border-gray-300 text-gray-900'
-                  }`}
+                  } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   placeholder={`Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}
                 />
               </motion.div>
@@ -223,29 +263,53 @@ function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
                 rows="5"
                 className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 resize-none transition duration-300 ${
                   isDark
                     ? 'bg-gray-900 border border-gray-700 text-white'
                     : 'bg-white border border-gray-300 text-gray-900'
-                }`}
+                } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 placeholder="Your message here..."
               ></textarea>
             </motion.div>
 
             <motion.button
               type="submit"
-              whileHover={{
+              disabled={isSubmitting}
+              whileHover={!isSubmitting ? {
                 scale: 1.07,
                 backgroundColor: "#2563eb",
                 boxShadow: "0px 0px 15px rgba(37,99,235,0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
+              } : {}}
+              whileTap={!isSubmitting ? { scale: 0.95 } : {}}
               transition={{ type: "spring", stiffness: 200 }}
-              className="w-full bg-blue-500 text-white font-bold py-3 rounded-lg transition duration-300"
+              className={`w-full bg-blue-500 text-white font-bold py-3 rounded-lg transition duration-300 ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+              }`}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </motion.button>
+
+            {submitStatus === 'success' && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-green-500 text-center font-semibold"
+              >
+                Message sent successfully!
+              </motion.p>
+            )}
+
+            {submitStatus === 'error' && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-500 text-center font-semibold"
+              >
+                Failed to send. Please try again.
+              </motion.p>
+            )}
           </motion.form>
         </div>
       </div>
