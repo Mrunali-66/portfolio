@@ -1,70 +1,168 @@
+/* ===== COMPLETE FIXED CSS FILE ===== */
+/* Add this to your index.css or App.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Critical Base Fixes */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Utility Layer Fixes */
+@layer utilities {
+  .container-safe {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-safe {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-safe {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+/* App Wrapper */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Section Base Styles */
+section {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Container Fixes */
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl {
+  max-width: calc(100vw - 2rem) !important;
+}
+
+/* Mobile Specific Fixes */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl {
+    max-width: 100% !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Fix for mx-auto with padding */
+  .mx-auto {
+    max-width: calc(100vw - 2rem);
   }
 }
 
-/* Base state: hidden */
-.project-card {
-  opacity: 0;
-  transform: translateY(30px); /* default fade-up */
-  transition: all 0.7s ease-out;
+/* Framer Motion Fix */
+div[style*="transform"],
+div[style*="width"] {
+  max-width: 100% !important;
 }
 
-/* Fade-up animation */
-.project-card.fade-up.animate-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Grid Layout Fixes */
+.grid {
+  width: 100%;
+  max-width: 100%;
 }
 
-/* Slide-left animation */
-.project-card.slide-left {
-  transform: translateX(30px);
-}
-.project-card.slide-left.animate-visible {
-  opacity: 1;
-  transform: translateX(0);
+/* Flex Container Fixes */
+.flex {
+  max-width: 100%;
 }
 
-/* Rotate-in animation */
-.project-card.rotate-in {
-  transform: rotate(15deg);
-}
-.project-card.rotate-in.animate-visible {
-  opacity: 1;
-  transform: rotate(0deg);
+/* Fixed and Absolute Positioning Fixes */
+.fixed,
+.absolute {
+  max-width: 100vw;
 }
 
+/* Additional Tailwind Class Overrides */
+.w-screen {
+  width: 100vw;
+  max-width: 100%;
+}
+
+/* Prevent text overflow */
+.text-responsive {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Custom Scrollbar (Optional) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}

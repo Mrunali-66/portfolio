@@ -13,8 +13,9 @@ function Hero() {
           ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white' 
           : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
       }`}
+      style={{ overflow: 'hidden', maxWidth: '100%', width: '100%' }}
     >
-      <div className="max-w-5xl mx-auto px-4 text-center">
+      <div className="w-full px-4 sm:px-6 lg:px-8 text-center" style={{ maxWidth: '100%' }}>
         
         {/* Logo */}
         <motion.div
@@ -35,7 +36,8 @@ function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-bold mb-6"
+          className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 px-4"
+          style={{ maxWidth: '100%' }}
         >
           Hi, I'm <span className={`transition-colors duration-300 ${
             isDark ? 'text-blue-500' : 'text-blue-600'
@@ -47,9 +49,10 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className={`text-xl md:text-2xl mb-6 transition-colors duration-300 ${
+          className={`text-lg sm:text-xl md:text-2xl mb-6 px-4 transition-colors duration-300 ${
             isDark ? 'text-gray-300' : 'text-gray-600'
           }`}
+          style={{ maxWidth: '100%' }}
         >
           <Typewriter
             words={[
@@ -74,7 +77,8 @@ function Hero() {
             hidden: { opacity: 0 },
             visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
           }}
-          className="flex flex-wrap gap-3 justify-center mb-12"
+          className="flex flex-wrap gap-3 justify-center mb-12 px-4"
+          style={{ maxWidth: '100%' }}
         >
           {[
             "React.js",
@@ -108,11 +112,12 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="flex gap-6 justify-center flex-wrap"
+          className="flex gap-4 sm:gap-6 justify-center flex-wrap px-4"
+          style={{ maxWidth: '100%' }}
         >
           <motion.a
             href="#projects"
-            className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 ${
+            className={`px-6 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 ${
               isDark
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
@@ -124,7 +129,7 @@ function Hero() {
           </motion.a>
           <motion.a
             href="#contact"
-            className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 ${
+            className={`px-6 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 ${
               isDark
                 ? 'border border-blue-500 hover:bg-blue-500 hover:text-white text-white'
                 : 'border-2 border-blue-600 hover:bg-blue-600 hover:text-white text-blue-600'

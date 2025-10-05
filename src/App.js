@@ -12,15 +12,15 @@ import Achievements from './Achievements';
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen">
+      <div className="min-h-screen overflow-x-hidden w-full" style={{ maxWidth: '100%' }}>
         <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Achievements />
-      <Contact />
-      <Footer />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Achievements />
+        <Contact />
+        <Footer />
       </div>
     </ThemeProvider>
   );
