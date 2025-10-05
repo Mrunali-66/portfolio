@@ -3,7 +3,7 @@
 // 2. Sign up at https://www.emailjs.com/
 // 3. Create an email template and get your credentials
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from './ThemeContext';
 import emailjs from '@emailjs/browser';
@@ -23,6 +23,11 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
+  // Initialize EmailJS with your public key
+  useEffect(() => {
+    emailjs.init('6ELO3bV3GWRwyk_AY');
+  }, []);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -33,33 +38,46 @@ function Contact() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Replace with your EmailJS credentials
-    const SERVICE_ID = 'service_4asggqp';      // New service ID
-    const TEMPLATE_ID = 'template_kshtx93';     // Keep same
-    const PUBLIC_KEY = '6ELO3bV3GWRwyk_AY';     // Keep sameconst SERVICE_ID = 'service_4asggqp';      // New service ID
+    // Your EmailJS credentials
+    const SERVICE_ID = 'service_4asggqp';
+    const TEMPLATE_ID = 'template_pwh7i6d';
 
-    emailjs.send(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_email: 'jiyahajare62@gmail.com', // Your email
-      },
-      PUBLIC_KEY
-    )
+    // Template parameters - Make sure your EmailJS template has these variables
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    console.log('🔄 Attempting to send email...');
+    console.log('📋 Template params:', templateParams);
+    console.log('🔑 Service ID:', SERVICE_ID);
+    console.log('📝 Template ID:', TEMPLATE_ID);
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
     .then((response) => {
-      console.log('SUCCESS!', response.status, response.text);
+      console.log('✅ SUCCESS!', response.status, response.text);
       setSubmitStatus('success');
       setFormData({ name: "", email: "", subject: "", message: "" });
       alert("Thank you! Your message has been sent successfully.");
     })
     .catch((error) => {
-      console.error('FAILED...', error);
+      console.error('❌ FAILED - Full error object:', error);
+      console.error('❌ Error message:', error.text || error.message);
+      console.error('❌ Error status:', error.status);
       setSubmitStatus('error');
-      alert("Oops! Something went wrong. Please try again or email me directly.");
+      
+      // Show specific error message
+      let errorMsg = "Oops! Something went wrong. ";
+      if (error.text) {
+        errorMsg += `Error: ${error.text}`;
+      } else if (error.message) {
+        errorMsg += `Error: ${error.message}`;
+      }
+      errorMsg += "\n\nPlease email me directly at jiyahajare62@gmail.com";
+      
+      alert(errorMsg);
     })
     .finally(() => {
       setIsSubmitting(false);
