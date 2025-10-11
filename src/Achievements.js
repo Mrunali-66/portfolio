@@ -5,7 +5,7 @@ import { useTheme } from './ThemeContext';
 function Achievements() {
   const { isDark } = useTheme();
   
-  const achievements = [
+const achievements = [
     {
       icon: "🏆",
       title: "UK Design Patent (2024)",
@@ -19,6 +19,27 @@ function Achievements() {
       description: "Selected as finalist at DIPEX 2025 under the Safety Theme, competing with innovative safety solutions from across the region.",
       category: "Competition",
       color: "from-blue-500 to-purple-500"
+    },
+    {
+      icon: "🚀",
+      title: "National Level Innovation Competition",
+      description: "Participated in prestigious national level innovation competition, showcasing cutting-edge solutions and competing with top innovators across the country.",
+      category: "Competition",
+      color: "from-green-500 to-teal-500"
+    },
+    {
+      icon: "👩🏻‍💻",
+      title: "Full Stack Web Development",
+      description: "Completed comprehensive Full Stack Web Development certification, mastering modern web technologies, frameworks, and best practices for building scalable applications.",
+      category: "Certification",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: "🐍",
+      title: "Full Stack Python Development",
+      description: "Achieved Full Stack Python Development certification, gaining expertise in Python frameworks, backend development, and database management.",
+      category: "Certification",
+      color: "from-cyan-500 to-blue-500"
     },
     {
       icon: "💻",
