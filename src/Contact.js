@@ -104,6 +104,16 @@ function Contact() {
         />
       ),
     },
+    {
+      href: "https://www.geeksforgeeks.org/user/jiyahajdxpv/",
+      svg: (
+        <img
+          src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
+          alt="GeeksforGeeks"
+          className="w-6 h-6"
+        />
+      ),
+    },
   ];
 
   return (
