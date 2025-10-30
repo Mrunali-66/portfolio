@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Mock ThemeContext for demo
-const ThemeContext = React.createContext({ isDark: false });
-const useTheme = () => React.useContext(ThemeContext);
+// Import your actual ThemeContext
+import { useTheme } from './ThemeContext';
 
 function Projects() {
   const { isDark } = useTheme();
@@ -84,7 +83,7 @@ const projects = [
   },
   {
     title: "Dangerous Writing App",
-    description: "A productivity and focus-enhancing writing application that motivates users by deleting their text after a period of inactivity. Built with Python and Tkinter, it leverages event-driven programming to enforce creative discipline and eliminate writer’s block.",
+    description: "A productivity and focus-enhancing writing application that motivates users by deleting their text after a period of inactivity. Built with Python and Tkinter, it leverages event-driven programming to enforce creative discipline and eliminate writer's block.",
     tech: ["Python", "Tkinter", "Event-Driven Programming"],
     features: [
       "Customizable Inactivity Timeout (3–15 seconds)",
@@ -298,9 +297,7 @@ const projects = [
   return (
     <section 
       id="projects" 
-      className={`min-h-screen py-20 transition-colors duration-300 ${
-        isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-      }`}
+      className="min-h-screen py-20"
     >
       <div className="max-w-7xl mx-auto px-4">
         {/* Title */}
@@ -499,22 +496,5 @@ const projects = [
   );
 }
 
-// Demo wrapper with theme
-export default function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  return (
-    <ThemeContext.Provider value={{ isDark }}>
-      <div className="relative">
-        {/* Theme Toggle */}
-        <button
-          onClick={() => setIsDark(!isDark)}
-          className="fixed top-4 right-4 z-50 px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-        >
-          {isDark ? '☀️ Light' : '🌙 Dark'}
-        </button>
-        <Projects />
-      </div>
-    </ThemeContext.Provider>
-  );
-}
+// Export the Projects component to use in your main App
+export default Projects;
